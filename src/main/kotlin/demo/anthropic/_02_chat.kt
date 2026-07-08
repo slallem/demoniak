@@ -33,8 +33,6 @@ fun main() {
         )
         println("Thing: $thing")
 
-        val another = chat.ask("Pick another color than the one you chose, then give me a thing of this color.")
-        println("Another one:  $another")
     } finally {
         client.close()
     }

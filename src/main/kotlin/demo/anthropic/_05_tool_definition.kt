@@ -41,9 +41,10 @@ fun main() {
         val messages = mutableListOf(
             MessageParam.builder()
                 .role(MessageParam.Role.USER)
-                .content(
-                    "Use the pick_color tool to choose a random color, then name one " +
-                        "fruit or vegetable of that color. Reply as '<color>: <thing>'."
+                .content("""
+                        Use the pick_color tool to choose a random color, then name one
+                        fruit or vegetable of that color. Reply as '<color>: <thing>'.
+                    """.trimIndent()
                 )
                 .build()
         )
