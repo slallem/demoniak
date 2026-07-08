@@ -9,12 +9,6 @@ import org.example.demo.anthropic.common.loadProperties
  *
  * The connection relies on a **classpath resource** for the API key: the key is read from
  * `src/main/resources/openai.properties` (property [API_KEY_PROPERTY]).
- *
- * Profiles: when a profile is active (VM option `-Dprofile=local`, or env var
- * `APP_PROFILE=local`), values from `<name>.properties.<profile>` (e.g.
- * `openai.properties.local`) are overlaid on top of the base file. Keep the base
- * file committed with placeholders and put real secrets in the git-ignored `.local`
- * overlay. The profile-aware loading is shared via [loadProperties].
  */
 private const val API_KEY_RESOURCE = "openai"
 private const val API_KEY_PROPERTY = "openai.api.key"

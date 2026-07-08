@@ -16,6 +16,7 @@ dependencies {
     implementation(platform("com.fasterxml.jackson:jackson-bom:2.18.9"))
     implementation("com.anthropic:anthropic-java:2.34.0")
     implementation("com.openai:openai-java:4.41.0")
+    implementation("com.google.genai:google-genai:1.60.0")
     testImplementation(kotlin("test"))
 }
 
