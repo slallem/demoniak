@@ -1,6 +1,5 @@
 package org.example.demo.anthropic
 
-import com.anthropic.models.messages.Model
 import org.example.demo.anthropic.common.Conversation
 import org.example.demo.anthropic.common.anthropicClient
 
@@ -19,7 +18,7 @@ import org.example.demo.anthropic.common.anthropicClient
 fun main() {
     val client = anthropicClient()
     try {
-        val chat = Conversation(client, Model.of("claude-opus-4-8"))
+        val chat = Conversation(client) // uses Models.DEFAULT
 
         // Each ask() remembers the previous turns, so questions can build on each other.
         val color = chat.ask(

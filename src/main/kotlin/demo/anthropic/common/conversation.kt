@@ -32,7 +32,7 @@ private fun textOf(response: Message): String =
  */
 class Conversation(
     private val client: AnthropicClient,
-    private val model: Model,
+    private val model: Model = defaultModel,
     private val maxTokens: Long = 1024L,
     private val system: String? = null,
 ) {

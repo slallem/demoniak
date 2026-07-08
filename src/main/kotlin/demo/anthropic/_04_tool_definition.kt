@@ -3,10 +3,10 @@ package org.example.demo.anthropic
 import com.anthropic.models.messages.ContentBlockParam
 import com.anthropic.models.messages.MessageCreateParams
 import com.anthropic.models.messages.MessageParam
-import com.anthropic.models.messages.Model
 import com.anthropic.models.messages.Tool
 import com.anthropic.models.messages.ToolResultBlockParam
 import org.example.demo.anthropic.common.anthropicClient
+import org.example.demo.anthropic.common.defaultModel
 
 /**
  * Extending the conversation with a custom **tool**: my own `pick_color` function.
@@ -37,7 +37,7 @@ private val pickColorTool: Tool = Tool.builder()
 fun main() {
     val client = anthropicClient()
     try {
-        val model = Model.of("claude-opus-4-8")
+        val model = defaultModel
         val messages = mutableListOf(
             MessageParam.builder()
                 .role(MessageParam.Role.USER)

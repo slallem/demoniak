@@ -1,6 +1,5 @@
 package org.example.demo.anthropic
 
-import com.anthropic.models.messages.Model
 import org.example.demo.anthropic.common.Conversation
 import org.example.demo.anthropic.common.anthropicClient
 
@@ -49,7 +48,6 @@ fun main() {
     try {
         val chat = Conversation(
             client = client,
-            model = Model.of("claude-opus-4-8"),
             system = buildSystemPrompt(),
         )
 
