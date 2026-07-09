@@ -8,6 +8,7 @@ import com.anthropic.models.messages.OutputConfig
 import com.anthropic.models.messages.ThinkingConfigAdaptive
 import org.example.demo.anthropic.common.Models
 import org.example.demo.anthropic.common.anthropicClient
+import kotlin.random.Random
 
 /**
  * Demonstrating **extended thinking on newer models** — the modern mechanic, the
@@ -34,8 +35,10 @@ import org.example.demo.anthropic.common.anthropicClient
 // Adaptive thinking + effort require a 4.6+ model; Haiku 4.5 would 400 here.
 private val MODEL: Model = Model.of(Models.SONNET_5)
 
-// Trickiest question found for this example
-private const val QUESTION = "What is the 14598765416513267465164897899515th decimal of a third of nine ? Give just a digit."
+// Trickiest question found for this example. A big *positive* random number, re-rolled each
+// run so repeated calls don't hit the prompt cache.
+private val NTH = Random.nextLong(1_000_000_000_000L, Long.MAX_VALUE)
+private val QUESTION = "What is the ${NTH}th decimal of a third of nine ? Give just a digit."
 
 private fun Message.thinkingText(): String =
     content().mapNotNull { it.thinking().orElse(null) }.joinToString("\n") { it.thinking() }
