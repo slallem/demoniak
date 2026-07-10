@@ -11,7 +11,7 @@ import kotlin.math.ln
 
 /**
  * **RAG** (Retrieval-Augmented Generation) over the Sherlock Holmes corpus in
- * `rag/docs/`. The flow is the classic one:
+ * `assets/books/`. The flow is the classic one:
  *
  *   question → retrieve the most relevant passages → put them in the prompt →
  *   let Claude answer *from that context only* (and cite the source story).
@@ -39,7 +39,7 @@ import kotlin.math.ln
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
-private const val DOCS_DIR = "rag/docs"
+private const val DOCS_DIR = "assets/books"
 private const val TOP_K = 3
 
 // ---- Tokenization (shared by the index and the query) ----
