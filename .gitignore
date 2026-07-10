@@ -50,3 +50,4 @@ src/main/resources/anthropic.properties
 /src/main/resources/openai.properties
 ### Local profile overrides (never commit) ###
 *.properties.local
+/todo.md
