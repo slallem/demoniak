@@ -35,6 +35,15 @@ import javax.imageio.ImageIO
  * driven by *pixels, not file bytes*; oversized images are auto-resized to the model's
  * cap first. We print the estimate next to the real `usage.input_tokens`.
  *
+ * There are several important limitations to keep in mind when working with images:
+ *
+ * Up to 100 images across all messages in a single request
+ * Max size of 5MB per image
+ * When sending one image: max height/width of 8000px
+ * When sending multiple images: max height/width of 2000px
+ * Images can be included as base64 encoding or a URL to the image
+ * Each image counts as tokens based on its dimensions: tokens = (width px × height px) / 750
+ *
  * Vision works on all current models, including the repo default `claude-haiku-4-5`.
  */
 
