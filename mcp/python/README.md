@@ -85,6 +85,27 @@ traffic — each JSON-RPC message sent (`→`) and received (`←`):
 hi
 ```
 
+## The official MCP Inspector (recommended)
+
+The scripts above are handy for the shell and show the raw protocol, but the official,
+interactive way to test any MCP server is the **[MCP Inspector](https://modelcontextprotocol.io/docs/tools/inspector)**
+— a browser UI maintained by the Model Context Protocol project ([source](https://github.com/modelcontextprotocol/inspector),
+[npm](https://www.npmjs.com/package/@modelcontextprotocol/inspector)). It lets you list and
+call tools from a form, browse resources/prompts, and see the raw JSON-RPC. It supports all
+transports (stdio, SSE, streamable-http).
+
+Point it at this server (requires Node.js; nothing to add to this project — `npx` fetches it):
+
+```sh
+npx @modelcontextprotocol/inspector python3 mcp/python/server.py
+```
+
+It opens a UI at `http://localhost:6274`. There's also a scriptable `--cli` mode.
+
+> It's essentially the GUI version of `describe.sh` (Tools tab = `tools/list`) and `calls.sh`
+> (call a tool from a form): the shell scripts demystify the JSON-RPC underneath, the Inspector
+> is what you'd reach for in day-to-day development.
+
 ## Register with an MCP client
 
 **Claude Code:**
