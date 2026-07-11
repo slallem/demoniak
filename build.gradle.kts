@@ -17,6 +17,10 @@ dependencies {
     implementation("com.anthropic:anthropic-java:2.34.0")
     implementation("com.openai:openai-java:4.41.0")
     implementation("com.google.genai:google-genai:1.60.0")
+    implementation("io.modelcontextprotocol:kotlin-sdk:0.14.0")
+    // Ktor HTTP engine for the MCP Streamable-HTTP (remote) transport used in _19.
+    // The SDK brings ktor-client-core (with the SSE plugin) but no engine.
+    implementation("io.ktor:ktor-client-cio:3.4.3")
     testImplementation(kotlin("test"))
 }
 
