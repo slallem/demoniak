@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 #
-# calls.sh — call the MCP server's tools from the shell.
+# call_tools.sh — call the MCP server's tools from the shell.
 #
 # An MCP server speaks JSON-RPC over stdin/stdout, NOT free text. So `echo "a question"
 # | python3 server.py` won't work. This script builds the required handshake
 # (initialize → initialized → tools/call) and pipes it to the server, then extracts the
-# text result. To discover WHICH tools exist and their parameters, use ./describe.sh.
+# text result. To discover WHICH tools exist and their parameters, use ./list_tools.sh.
 #
 # Usage:
-#   ./calls.sh                                    # run the built-in demo calls
-#   ./calls.sh [-v] <tool_name> ['<json_args>']   # call one tool, e.g.:
-#   ./calls.sh slugify   '{"text":"Hello World"}'
-#   ./calls.sh roll_dice '{"sides":20,"count":3}'
-#   ./calls.sh roll_dice                          # no args → tool defaults
+#   ./call_tools.sh                                    # run the built-in demo calls
+#   ./call_tools.sh [-v] <tool_name> ['<json_args>']   # call one tool, e.g.:
+#   ./call_tools.sh slugify   '{"text":"Hello World"}'
+#   ./call_tools.sh roll_dice '{"sides":20,"count":3}'
+#   ./call_tools.sh roll_dice                          # no args → tool defaults
 #
 #   -v / --verbose  (or MCP_DUMP=1)  dump the raw JSON-RPC sent (→) and received (←).
 #
@@ -87,5 +87,5 @@ else
   echo "# error case: unknown tool"
   mcp_call no_such_tool '{}' || echo "(exited non-zero, as expected for an error result)"
   echo
-  echo "# tip: run ./describe.sh to discover the available tools and their parameters"
+  echo "# tip: run ./list_tools.sh to discover the available tools and their parameters"
 fi

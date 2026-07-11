@@ -13,12 +13,22 @@ Run it directly:
 ⚠️ stdout is the protocol channel — never print anything but JSON-RPC to it.
    Diagnostics go to stderr (see log()).
 
-Tools exposed (deliberately tiny, just to demonstrate parameters + results):
-  - roll_dice(sides=6, count=1)  → real randomness the model can't fake
-  - slugify(text)                → deterministic string transform
+This server demonstrates all THREE MCP primitives:
+
+  - TOOLS      (model-controlled actions):
+      roll_dice(sides=6, count=1)  → real randomness the model can't fake
+      slugify(text)                → deterministic string transform
+  - RESOURCES  (app-controlled, read-only data addressed by URI):
+      the Sherlock Holmes stories under assets/books/ (sherlock:///<file>.md)
+  - PROMPTS    (user-controlled reusable templates):
+      haiku(subject)               → a ready-made "write a haiku" request
+
+Each primitive has a list + a use method: tools/list + tools/call,
+resources/list + resources/read, prompts/list + prompts/get.
 """
 
 import json
+import os
 import random
 import re
 import sys
@@ -86,6 +96,88 @@ def tool_slugify(args):
 HANDLERS = {"roll_dice": tool_roll_dice, "slugify": tool_slugify}
 
 
+# ---- Resources: read-only data addressed by URI --------------------------------
+#
+# We expose the Sherlock Holmes stories from the project's assets/books/ folder. A
+# resource is DATA (not an action): the client reads it and may put it in context.
+# URI scheme here: sherlock:///<filename>.md
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+DOCS_DIR = os.path.normpath(os.path.join(HERE, "..", "..", "assets", "books"))
+RESOURCE_SCHEME = "sherlock:///"
+
+
+def _story_files():
+    """Sorted list of story filenames in assets/books (empty if the folder is absent)."""
+    if not os.path.isdir(DOCS_DIR):
+        return []
+    return sorted(f for f in os.listdir(DOCS_DIR) if f.endswith(".md") and f != "SOURCE.md")
+
+
+def _title(path, fallback):
+    try:
+        with open(path, encoding="utf-8") as fh:
+            for line in fh:
+                if line.startswith("# "):
+                    return line[2:].strip()
+    except OSError:
+        pass
+    return fallback
+
+
+def list_resources():
+    resources = []
+    for name in _story_files():
+        resources.append({
+            "uri": RESOURCE_SCHEME + name,
+            "name": _title(os.path.join(DOCS_DIR, name), name),
+            "description": "A Sherlock Holmes story (public domain).",
+            "mimeType": "text/markdown",
+        })
+    return resources
+
+
+def read_resource(uri):
+    """Return the contents block for a known resource URI, or None if unknown."""
+    if not uri or not uri.startswith(RESOURCE_SCHEME):
+        return None
+    name = uri[len(RESOURCE_SCHEME):]
+    if name not in _story_files():          # only serve listed files (no path traversal)
+        return None
+    with open(os.path.join(DOCS_DIR, name), encoding="utf-8") as fh:
+        text = fh.read()
+    return {"uri": uri, "mimeType": "text/markdown", "text": text}
+
+
+# ---- Prompts: reusable, user-selected templates --------------------------------
+#
+# A prompt is a TEMPLATE the user picks (often shown as a slash-command). prompts/get
+# fills in the arguments and returns ready-to-send messages.
+
+PROMPTS = [
+    {
+        "name": "haiku",
+        "description": "Ask the assistant to write a haiku about a subject.",
+        "arguments": [
+            {"name": "subject", "description": "What the haiku should be about", "required": True},
+        ],
+    },
+]
+
+
+def get_prompt(name, arguments):
+    """Return a filled-in prompt (description + messages), or None if unknown."""
+    if name != "haiku":
+        return None
+    subject = (arguments or {}).get("subject", "the sea")
+    return {
+        "description": "A haiku request",
+        "messages": [
+            {"role": "user", "content": {"type": "text", "text": f"Write a haiku about {subject}."}},
+        ],
+    }
+
+
 # ---- JSON-RPC plumbing ---------------------------------------------------------
 
 def send(message):
@@ -111,7 +203,9 @@ def handle(request):
         version = request.get("params", {}).get("protocolVersion", PROTOCOL_VERSION)
         result(req_id, {
             "protocolVersion": version,
-            "capabilities": {"tools": {}},
+            # Advertise every primitive this server supports. A client reads this to
+            # know what to ask for (tools/list, resources/list, prompts/list).
+            "capabilities": {"tools": {}, "resources": {}, "prompts": {}},
             "serverInfo": SERVER_INFO,
         })
 
@@ -135,6 +229,28 @@ def handle(request):
             result(req_id, {"content": [{"type": "text", "text": text}]})
         except Exception as exc:  # surface tool errors as isError results, not RPC errors
             result(req_id, {"content": [{"type": "text", "text": f"error: {exc}"}], "isError": True})
+
+    elif method == "resources/list":
+        result(req_id, {"resources": list_resources()})
+
+    elif method == "resources/read":
+        uri = request.get("params", {}).get("uri")
+        contents = read_resource(uri)
+        if contents is None:
+            error(req_id, -32602, f"Unknown resource: {uri}")
+        else:
+            result(req_id, {"contents": [contents]})
+
+    elif method == "prompts/list":
+        result(req_id, {"prompts": PROMPTS})
+
+    elif method == "prompts/get":
+        params = request.get("params", {})
+        got = get_prompt(params.get("name"), params.get("arguments"))
+        if got is None:
+            error(req_id, -32602, f"Unknown prompt: {params.get('name')}")
+        else:
+            result(req_id, got)
 
     elif req_id is not None:
         error(req_id, -32601, f"Method not found: {method}")

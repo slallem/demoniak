@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 #
-# describe.sh — ask the MCP server to describe itself: its identity (from initialize)
+# list_tools.sh — ask the MCP server to describe itself: its identity (from initialize)
 # and its tools with parameters (from tools/list).
 #
 # This is MCP **discovery** — how a client learns what a server offers WITHOUT knowing
 # the tools in advance (exactly what the _18 / _19 client examples do at startup).
-# To actually call a tool, use ./calls.sh.
+# To actually call a tool, use ./call_tools.sh.
 #
 # Usage:
-#   ./describe.sh        # print server identity + tools with parameters
-#   ./describe.sh -v     # also dump the raw JSON-RPC sent (→) and received (←)
+#   ./list_tools.sh        # print server identity + tools with parameters
+#   ./list_tools.sh -v     # also dump the raw JSON-RPC sent (→) and received (←)
 #
 set -uo pipefail
 
