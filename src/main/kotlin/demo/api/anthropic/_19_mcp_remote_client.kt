@@ -1,26 +1,22 @@
 package demo.api.anthropic
 
 import com.anthropic.core.JsonValue
-import com.anthropic.models.messages.ContentBlockParam
-import com.anthropic.models.messages.MessageCreateParams
-import com.anthropic.models.messages.MessageParam
-import com.anthropic.models.messages.ToolResultBlockParam
-import com.anthropic.models.messages.ToolUseBlock
-import com.anthropic.models.messages.Tool as AnthropicTool
+import com.anthropic.models.messages.*
 import com.fasterxml.jackson.databind.ObjectMapper
 import demo.api.anthropic.common.anthropicClient
 import demo.api.anthropic.common.defaultModel
-import io.ktor.client.HttpClient
-import io.ktor.client.engine.cio.CIO
-import io.ktor.client.plugins.sse.SSE
+import io.ktor.client.*
+import io.ktor.client.engine.cio.*
+import io.ktor.client.plugins.sse.*
 import io.modelcontextprotocol.kotlin.sdk.client.Client
 import io.modelcontextprotocol.kotlin.sdk.client.mcpStreamableHttpTransport
 import io.modelcontextprotocol.kotlin.sdk.types.CallToolResult
 import io.modelcontextprotocol.kotlin.sdk.types.Implementation
 import io.modelcontextprotocol.kotlin.sdk.types.TextContent
-import io.modelcontextprotocol.kotlin.sdk.types.Tool as McpTool
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.JsonElement
+import com.anthropic.models.messages.Tool as AnthropicTool
+import io.modelcontextprotocol.kotlin.sdk.types.Tool as McpTool
 
 /**
  * **Remote MCP client** — the networked counterpart to [_18_mcp_client].

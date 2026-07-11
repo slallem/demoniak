@@ -1,12 +1,7 @@
 package demo.api.anthropic
 
 import com.anthropic.core.JsonValue
-import com.anthropic.models.messages.ContentBlockParam
-import com.anthropic.models.messages.MessageCreateParams
-import com.anthropic.models.messages.MessageParam
-import com.anthropic.models.messages.ToolResultBlockParam
-import com.anthropic.models.messages.ToolUseBlock
-import com.anthropic.models.messages.Tool as AnthropicTool
+import com.anthropic.models.messages.*
 import com.fasterxml.jackson.databind.ObjectMapper
 import demo.api.anthropic.common.anthropicClient
 import demo.api.anthropic.common.defaultModel
@@ -15,13 +10,13 @@ import io.modelcontextprotocol.kotlin.sdk.client.StdioClientTransport
 import io.modelcontextprotocol.kotlin.sdk.types.CallToolResult
 import io.modelcontextprotocol.kotlin.sdk.types.Implementation
 import io.modelcontextprotocol.kotlin.sdk.types.TextContent
-import io.modelcontextprotocol.kotlin.sdk.types.Tool as McpTool
 import kotlinx.coroutines.runBlocking
 import kotlinx.io.asSink
 import kotlinx.io.asSource
 import kotlinx.io.buffered
 import kotlinx.serialization.json.JsonElement
-import java.io.File
+import com.anthropic.models.messages.Tool as AnthropicTool
+import io.modelcontextprotocol.kotlin.sdk.types.Tool as McpTool
 
 /**
  * **MCP client** — let Claude call the tools of our stdio server (`mcp/python/server.py`).
