@@ -8,14 +8,14 @@ package demo.api.google.common
  * To switch the model used by every example, change [Models.DEFAULT] in one place.
  *
  * Caveats worth knowing before changing [Models.DEFAULT]:
- *  - **Prompt caching has a per-generation minimum prefix size**: 2048 tokens on the 2.5
- *    family, 4096 on the 3.x family. Below it nothing is cached, silently. That is why
- *    `_04_prompt_caching` builds a deliberately huge system prompt (see that file).
  *  - **Thinking is on by default** and dominates latency on small prompts. Turn it down with
  *    `GenerateContentConfig.thinkingConfig` — but the knob differs per family: `thinkingBudget`
  *    (0 disables) on 2.5, `thinkingLevel` (MINIMAL…HIGH) on 3.x.
  *  - The frontier models are the slowest to serve and the first to be throttled: on a free-tier
  *    key [GEMINI_3_5_FLASH] answers 503 "high demand" / 429 far more often than it answers.
+ *  - **The free tier allows only ~20 requests/day, per model** (the 429 names the quota
+ *    `GenerateRequestsPerDayPerProjectPerModel-FreeTier`). A handful of runs exhausts a model for
+ *    the day; the budget is per model, so switching [Models.DEFAULT] buys a fresh allowance.
  */
 object Models {
     // ---- Current (recommended) ----
