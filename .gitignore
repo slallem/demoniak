@@ -51,3 +51,4 @@ src/main/resources/anthropic.properties
 ### Local profile overrides (never commit) ###
 *.properties.local
 /todo.md
+/src/main/resources/mistral.properties
