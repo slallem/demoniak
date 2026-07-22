@@ -58,7 +58,7 @@ Keys are **not** env vars: each provider reads `src/main/resources/<provider>.pr
 |---|---|
 | **OpenAI** | `_01` starter · `_02` chat · `_03` system prompt · `_04` 🔧 function calling · `_05` 📡 streaming · `_06` structured outputs · `_07` JSON mode · `_08` 👁️ vision · `_09` 👁️ vision from a URL |
 | **Google Gemini** | `_01` starter · `_02` chat · `_03` system prompt |
-| **Mistral** | `_01` starter · `_02` structured outputs · `_03` function calling · `_04` 📄 OCR (dedicated endpoint) · `_05` 📄 OCR — PDF, chained into chat for targeted extraction |
+| **Mistral** | `_01` starter · `_02` structured outputs · `_03` function calling · `_04` 📄 OCR (dedicated endpoint) · `_05` 📄 OCR — PDF, chained into chat for targeted extraction · `_06` 🧑‍💻 Codestral FIM |
 | **Ollama** 🏠 | `_01` starter · `_02` chat, both via the OpenAI-compatible API and the native HTTP API |
 
 ### 🔌 MCP server
