@@ -16,14 +16,21 @@ import demo.api.anthropic.common.loadProperties
  * `max_completion_tokens` field (422) and only accepts the deprecated `max_tokens` — see
  * `_01_starter`.
  *
+ * Not everything Mistral exposes fits the `chat/completions` shape, though: `/v1/ocr` (see
+ * `_04_ocr`) is a Mistral-only endpoint with its own request/response schema, so there is nothing
+ * for the OpenAI SDK to model — that example calls it over plain HTTP instead, using
+ * [MISTRAL_BASE_URL] and [mistralApiKey] directly.
+ *
  * The key is read from `src/main/resources/mistral.properties` (property [API_KEY_PROPERTY]).
  */
 private const val API_KEY_RESOURCE = "mistral"
 private const val API_KEY_PROPERTY = "mistral.api.key"
-private const val MISTRAL_BASE_URL = "https://api.mistral.ai/v1"
+
+/** Base URL of the Mistral API — shared by the SDK client below and any hand-rolled HTTP call. */
+const val MISTRAL_BASE_URL = "https://api.mistral.ai/v1"
 
 /** Reads the Mistral API key from the (profile-aware) properties. */
-private fun loadApiKey(): String =
+fun mistralApiKey(): String =
     loadProperties(API_KEY_RESOURCE).getProperty(API_KEY_PROPERTY)
         ?.takeIf { it.isNotBlank() }
         ?: error("Property '$API_KEY_PROPERTY' is missing or blank")
@@ -32,5 +39,5 @@ private fun loadApiKey(): String =
 fun mistralClient(): OpenAIClient =
     OpenAIOkHttpClient.builder()
         .baseUrl(MISTRAL_BASE_URL)
-        .apiKey(loadApiKey())
+        .apiKey(mistralApiKey())
         .build()
