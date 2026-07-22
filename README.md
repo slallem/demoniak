@@ -55,7 +55,7 @@ Keys are **not** env vars: each provider reads `src/main/resources/<provider>.pr
 
 | Provider | Examples |
 |---|---|
-| **OpenAI** | `_01` starter |
+| **OpenAI** | `_01` starter · `_02` chat · `_03` system prompt |
 | **Google Gemini** | `_01` starter · `_02` chat · `_03` system prompt |
 | **Ollama** 🏠 | `_01` starter · `_02` chat, both via the OpenAI-compatible API and the native HTTP API |
 
