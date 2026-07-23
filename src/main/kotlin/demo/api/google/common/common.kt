@@ -6,10 +6,11 @@ import demo.api.anthropic.common.loadProperties
 /**
  * Common code for connecting to the Gemini API from Kotlin (via the official Google GenAI Java SDK).
  *
- * The connection relies on a **classpath resource** for the API key: the key is read from
- * `src/main/resources/google.properties` (property [API_KEY_PROPERTY]).
+ * The connection relies on a **classpath resource** for the API key: every provider in this repo
+ * shares the same `src/main/resources/credentials.properties` file (property [API_KEY_PROPERTY]
+ * for this one) — see `credentials.properties.example` for the documented, committed template.
  */
-private const val API_KEY_RESOURCE = "google"
+private const val API_KEY_RESOURCE = "credentials"
 private const val API_KEY_PROPERTY = "google.api.key"
 
 /** Reads the Gemini API key from the (profile-aware) properties. */

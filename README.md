@@ -19,8 +19,9 @@ No framework, no app to assemble — just the API, one concept at a time.
 ## 🚀 Quick start
 
 ```bash
-# 1. Put your key in a git-ignored local overlay
-echo 'anthropic.api.key=sk-ant-...' > src/main/resources/anthropic.properties.local
+# 1. Copy the template and fill in your real keys
+cp src/main/resources/credentials.properties.example src/main/resources/credentials.properties
+# then edit src/main/resources/credentials.properties
 
 # 2. Compile
 ./gradlew compileKotlin
@@ -28,9 +29,11 @@ echo 'anthropic.api.key=sk-ant-...' > src/main/resources/anthropic.properties.lo
 # 3. Run any example from the IDE run gutter (⚠️ working directory = project root)
 ```
 
-Keys are **not** env vars: each provider reads `src/main/resources/<provider>.properties`
-(`anthropic`, `openai`, `google`, `mistral`). Run with `-Dprofile=local` (or `APP_PROFILE=local`) to have
-`<provider>.properties.local` override the committed placeholders.
+Keys are **not** env vars: every provider reads the same `src/main/resources/credentials.properties`
+(git-ignored — never commit it), one property per provider (`anthropic.api.key`, `openai.api.key`,
+`google.api.key`, `mistral.api.key`). Ollama needs no key (local server). Advanced: run with
+`-Dprofile=local` (or `APP_PROFILE=local`) to overlay `credentials.properties.local` on top, if you
+ever want to switch between multiple credential sets without editing the base file.
 
 ## 📚 The examples
 

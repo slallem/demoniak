@@ -20,6 +20,11 @@ dependencies {
     implementation("com.anthropic:anthropic-java:2.34.0")
     implementation("com.openai:openai-java:4.41.0")
     implementation("com.google.genai:google-genai:1.60.0")
+    // Force a patched commons-codec. google-genai pulls in commons-codec:1.11 transitively
+    // (google-genai -> google-http-client:1.46.2 -> httpclient:4.5.14 -> commons-codec:1.11),
+    // which flags WS-2019-0379 (input validation). Gradle picks the highest requested version
+    // on conflict, so this direct declaration wins over the transitive one.
+    implementation("commons-codec:commons-codec:1.22.0")
     implementation("io.modelcontextprotocol:kotlin-sdk:0.14.0")
     // Ktor HTTP engine for the MCP Streamable-HTTP (remote) transport used in _19.
     // The SDK brings ktor-client-core (with the SSE plugin) but no engine.

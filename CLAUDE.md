@@ -32,16 +32,22 @@ being assembled from them.
 
 ## API keys & the profile system
 
-Keys are **not** env vars. Each provider reads a classpath resource
-`src/main/resources/<provider>.properties` (`anthropic.properties`, `openai.properties`,
-`google.properties`), property `<provider>.api.key`. These base files are **git-ignored**
-(they hold real secrets; committed copies would be placeholders like `CHANGE_ME`).
+Keys are **not** env vars. Every provider (anthropic, openai, google, mistral) reads the same
+classpath resource, `src/main/resources/credentials.properties`, one property per provider
+(`anthropic.api.key`, `openai.api.key`, `google.api.key`, `mistral.api.key`). That file is
+**git-ignored** (it holds real secrets); `credentials.properties.example` is the committed,
+documented template with `CHANGE_ME` placeholders — copy it to `credentials.properties` and fill
+in real keys to get started. Ollama needs no key (local server); AWS Bedrock, on the
+`aws-bedrock-examples` branch, is the one exception and authenticates via SigV4/IAM through real
+environment variables instead (see that branch's `demo.api.aws.common.bedrockClient`).
 
 `common/common.kt` → `loadProperties(name)` implements a profile overlay: with
 `-Dprofile=local` (or `APP_PROFILE=local`), values from `<name>.properties.local` override the
-base file. Convention: commit a placeholder base, put real keys in the git-ignored `.local`
-overlay. `loadProperties` lives in `demo.api.anthropic.common` and is **reused by the OpenAI and
-Google common code** — so `anthropic/common` is the de-facto shared home, not a pure per-provider split.
+base file — e.g. to swap in a different credential set without editing the base file directly.
+`name` is always `"credentials"` in practice today, but stays a parameter rather than a hardcoded
+constant so the mechanism remains reusable. `loadProperties` lives in `demo.api.anthropic.common`
+and is **reused by the OpenAI, Google, and Mistral common code** — so `anthropic/common` is the
+de-facto shared home, not a pure per-provider split.
 
 ## Architecture
 
