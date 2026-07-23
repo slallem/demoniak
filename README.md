@@ -54,14 +54,15 @@ ever want to switch between multiple credential sets without editing the base fi
 | `_09` | Structured outputs (native) | `_21` | 🔌 MCP prompts |
 | `_10` | ✍️ Prompt engineering | `_22` | 📄 OCR — images |
 | `_11` `_12` | 🔧 Tool parameters (typed / raw JSON) | `_23` | 📄 OCR — PDF |
+| | | `_24` | 🛡️ Moderation (Claude-as-classifier prompt) |
 
 ### 🌐 Other providers
 
 | Provider | Examples |
 |---|---|
-| **OpenAI** | `_01` starter · `_02` chat · `_03` system prompt · `_04` 🔧 function calling · `_05` 📡 streaming · `_06` structured outputs · `_07` JSON mode · `_08` 👁️ vision · `_09` 👁️ vision from a URL |
-| **Google Gemini** | `_01` starter · `_02` chat · `_03` system prompt |
-| **Mistral** | `_01` starter · `_02` structured outputs · `_03` function calling · `_04` 📄 OCR (dedicated endpoint) · `_05` 📄 OCR — PDF, chained into chat for targeted extraction · `_06` 🧑‍💻 Codestral FIM · `_07` 👁️ vision · `_08` 🔎 Embeddings + semantic RAG over Sherlock Holmes |
+| **OpenAI** | `_01` starter · `_02` chat · `_03` system prompt · `_04` 🔧 function calling · `_05` 📡 streaming · `_06` structured outputs · `_07` JSON mode · `_08` 👁️ vision · `_09` 👁️ vision from a URL · `_10` 🛡️ moderation |
+| **Google Gemini** | `_01` starter · `_02` chat · `_03` system prompt · `_04` 🛡️ moderation (safety ratings, not a dedicated endpoint) |
+| **Mistral** | `_01` starter · `_02` structured outputs · `_03` function calling · `_04` 📄 OCR (dedicated endpoint) · `_05` 📄 OCR — PDF, chained into chat for targeted extraction · `_06` 🧑‍💻 Codestral FIM · `_07` 👁️ vision · `_08` 🔎 Embeddings + semantic RAG over Sherlock Holmes · `_09` 🛡️ moderation (dedicated endpoint) |
 | **Ollama** 🏠 | `_01` starter · `_02` chat, both via the OpenAI-compatible API and the native HTTP API |
 
 ### 🔌 MCP server
