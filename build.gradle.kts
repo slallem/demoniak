@@ -1,5 +1,8 @@
 plugins {
     kotlin("jvm") version "2.4.0"
+    // Adds `./gradlew dependencyUpdates`: reports newer versions available for every dependency
+    // below, purely local (no CI/VCS integration, nothing automated) — run it manually whenever.
+    id("com.github.ben-manes.versions") version "0.54.0"
 }
 
 group = "org.example"
