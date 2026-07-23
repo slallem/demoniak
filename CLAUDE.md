@@ -17,6 +17,8 @@ being assembled from them.
 ./gradlew test               # runs JUnit 5; note: src/test is currently empty (no tests yet)
 # single test, once tests exist:
 ./gradlew test --tests "com.example.SomeTest.someMethod"
+./gradlew dependencyUpdates  # check for newer dependency versions (com.github.ben-manes.versions
+                             # plugin) — local only, no CI/VCS integration; run manually as needed
 ```
 
 - **JDK 25** is required (`jvmToolchain(25)`); the foojay resolver in `settings.gradle.kts`
