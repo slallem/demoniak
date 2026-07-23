@@ -22,6 +22,9 @@ object Models {
     // ---- Code ----
     const val CODESTRAL = "codestral-latest"
 
+    // ---- Embeddings ----
+    const val MISTRAL_EMBED = "mistral-embed"
+
     /** The model every example uses. Change this one line to switch them all. */
     const val DEFAULT = MISTRAL_SMALL
 }
