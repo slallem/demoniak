@@ -104,13 +104,16 @@ Three tags are actually exercised here, each chosen deliberately (`common/models
 
 - **`qwen3.5:2b`** — `Models.DEFAULT`. Small and fast (~1.5s/turn once `think` is disabled), used
   for `_01`, `_02` (both variants), `_03_tool_calling` (its chat template supports native tool
-  calling), and the answer-generation step of `_05_embeddings`. **Not** used for
-  `_04_structured_outputs`: tested there, it respects the JSON Schema's syntax but garbles the
-  actual content of a nested array field — a real, reproducible limitation at this size, not a
-  hypothetical one. In `_05_embeddings`, tested end to end against the real corpus, it retrieves
-  the right passages every time but still garbles 2 of 5 final answers despite correct context —
-  retrieval and generation are separate failure modes, and this size is fine at the first, shakier
-  at the second.
+  calling), the answer-generation step of `_05_embeddings`, and `_06_vision` (its `vision`
+  capability is real — tested against the actual asset, and the description plus JSON output were
+  both correct). **Not** used for `_04_structured_outputs`: tested there, it respects the JSON
+  Schema's syntax but garbles the actual content of a nested array field — a real, reproducible
+  limitation at this size, not a hypothetical one. In `_05_embeddings`, tested end to end against
+  the real corpus, it retrieves the right passages every time but still garbles 2 of 5 final
+  answers despite correct context — retrieval and generation are separate failure modes, and this
+  size is fine at the first, shakier at the second. In `_06_vision`, the limitation isn't quality
+  but **latency**: several minutes to process one ~1.4MB image, vs. ~1-2s for a plain text turn —
+  vision encoding at full resolution is simply much more expensive than tokenizing a sentence.
 - **`gemma4:12b`** — `Models.GEMMA4_12B`. Bigger and much slower (~30-50s/turn on CPU), with no
   runaway-thinking issue and, per the note above, reliable structured-output content — used
   specifically for `_04_structured_outputs` to get a clean result. Also the model this repo's own
