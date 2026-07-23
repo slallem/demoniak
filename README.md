@@ -9,6 +9,7 @@ with LLM APIs.
 ![Anthropic](https://img.shields.io/badge/Anthropic-Claude-D97757?logo=anthropic&logoColor=white)
 ![OpenAI](https://img.shields.io/badge/OpenAI-412991?logo=openai&logoColor=white)
 ![Google](https://img.shields.io/badge/Google-Gemini-4285F4?logo=googlegemini&logoColor=white)
+![Mistral](https://img.shields.io/badge/Mistral-FA520F?logo=mistralai&logoColor=white)
 ![Ollama](https://img.shields.io/badge/Ollama-local-000000?logo=ollama&logoColor=white)
 ![MCP](https://img.shields.io/badge/MCP-server%20%2B%20clients-000000)
 
@@ -28,7 +29,7 @@ echo 'anthropic.api.key=sk-ant-...' > src/main/resources/anthropic.properties.lo
 ```
 
 Keys are **not** env vars: each provider reads `src/main/resources/<provider>.properties`
-(`anthropic`, `openai`, `google`). Run with `-Dprofile=local` (or `APP_PROFILE=local`) to have
+(`anthropic`, `openai`, `google`, `mistral`). Run with `-Dprofile=local` (or `APP_PROFILE=local`) to have
 `<provider>.properties.local` override the committed placeholders.
 
 ## 📚 The examples
@@ -55,8 +56,9 @@ Keys are **not** env vars: each provider reads `src/main/resources/<provider>.pr
 
 | Provider | Examples |
 |---|---|
-| **OpenAI** | `_01` starter · `_02` chat · `_03` system prompt |
+| **OpenAI** | `_01` starter · `_02` chat · `_03` system prompt · `_04` 🔧 function calling · `_05` 📡 streaming · `_06` structured outputs · `_07` JSON mode · `_08` 👁️ vision · `_09` 👁️ vision from a URL |
 | **Google Gemini** | `_01` starter · `_02` chat · `_03` system prompt |
+| **Mistral** | `_01` starter · `_02` structured outputs · `_03` function calling · `_04` 📄 OCR (dedicated endpoint) · `_05` 📄 OCR — PDF, chained into chat for targeted extraction · `_06` 🧑‍💻 Codestral FIM · `_07` 👁️ vision · `_08` 🔎 Embeddings + semantic RAG over Sherlock Holmes |
 | **Ollama** 🏠 | `_01` starter · `_02` chat, both via the OpenAI-compatible API and the native HTTP API |
 
 ### 🔌 MCP server
