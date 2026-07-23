@@ -43,7 +43,12 @@ features live, with no equivalent in the OpenAI schema:
   caveat in `common/models.kt`).
 - `keep_alive` — how long the weights stay resident in memory after a call. The first call after
   idle pays the full model-load cost (tens of seconds for a 12B model); a longer `keep_alive`
-  keeps subsequent turns fast.
+  keeps subsequent turns fast. `_07_introspection` measures this cost directly rather than just
+  asserting it: `load_duration`, `prompt_eval_count`/`_duration`, and `eval_count`/`_duration` ride
+  along on every native response (nanoseconds), enough to compute real local tokens/sec — a figure
+  that simply doesn't exist for a hosted API, since your machine never did the work. `/api/ps`
+  (list what's currently resident in memory) is the other native-only introspection point that
+  file uses; neither has a hosted-API equivalent.
 - `format` — a full JSON Schema (or the literal string `"json"`) to grammar-constrain decoding,
   Ollama's structured-outputs mechanism (`_04_structured_outputs`). Constrains *syntax*, not
   *content* — see that file's header for a real example of a small model producing
