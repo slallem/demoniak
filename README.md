@@ -11,6 +11,7 @@ with LLM APIs.
 ![Google](https://img.shields.io/badge/Google-Gemini-4285F4?logo=googlegemini&logoColor=white)
 ![Mistral](https://img.shields.io/badge/Mistral-FA520F?logo=mistralai&logoColor=white)
 ![Ollama](https://img.shields.io/badge/Ollama-local-000000?logo=ollama&logoColor=white)
+![AWS Bedrock](https://img.shields.io/badge/AWS-Bedrock-232F3E?logo=amazonwebservices&logoColor=white)
 ![MCP](https://img.shields.io/badge/MCP-server%20%2B%20clients-000000)
 
 Every example is a standalone `fun main()` you can read in isolation and run from your IDE.
@@ -31,6 +32,11 @@ echo 'anthropic.api.key=sk-ant-...' > src/main/resources/anthropic.properties.lo
 Keys are **not** env vars: each provider reads `src/main/resources/<provider>.properties`
 (`anthropic`, `openai`, `google`, `mistral`). Run with `-Dprofile=local` (or `APP_PROFILE=local`) to have
 `<provider>.properties.local` override the committed placeholders.
+
+**Exception: AWS Bedrock.** It authenticates with SigV4 request signing, not a bearer-token key,
+so there is no `aws.properties`. Set `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` (+
+`AWS_SESSION_TOKEN` if using temporary credentials) and `AWS_REGION` as real environment
+variables instead — the AWS SDK's default provider chain picks them up on its own.
 
 ## 📚 The examples
 
@@ -60,6 +66,7 @@ Keys are **not** env vars: each provider reads `src/main/resources/<provider>.pr
 | **Google Gemini** | `_01` starter · `_02` chat · `_03` system prompt |
 | **Mistral** | `_01` starter · `_02` structured outputs · `_03` function calling · `_04` 📄 OCR (dedicated endpoint) · `_05` 📄 OCR — PDF, chained into chat for targeted extraction · `_06` 🧑‍💻 Codestral FIM · `_07` 👁️ vision · `_08` 🔎 Embeddings + semantic RAG over Sherlock Holmes |
 | **Ollama** 🏠 | `_01` starter · `_02` chat, both via the OpenAI-compatible API and the native HTTP API |
+| **AWS Bedrock** | `_01` starter · `_02` chat — Claude via Bedrock's Converse API, SigV4/IAM auth instead of a bearer key |
 
 ### 🔌 MCP server
 

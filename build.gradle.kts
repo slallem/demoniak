@@ -17,6 +17,10 @@ dependencies {
     implementation("com.anthropic:anthropic-java:2.34.0")
     implementation("com.openai:openai-java:4.41.0")
     implementation("com.google.genai:google-genai:1.60.0")
+    // Anthropic Claude via Amazon Bedrock (_01/_02 in demo.api.aws): the only provider here
+    // authenticated with AWS SigV4 request signing rather than a single bearer-token key, so it
+    // needs the AWS SDK (v2) instead of a lightweight HTTP call.
+    implementation("software.amazon.awssdk:bedrockruntime:2.49.1")
     implementation("io.modelcontextprotocol:kotlin-sdk:0.14.0")
     // Ktor HTTP engine for the MCP Streamable-HTTP (remote) transport used in _19.
     // The SDK brings ktor-client-core (with the SSE plugin) but no engine.
