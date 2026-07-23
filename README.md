@@ -63,7 +63,7 @@ ever want to switch between multiple credential sets without editing the base fi
 | **OpenAI** | `_01` starter · `_02` chat · `_03` system prompt · `_04` 🔧 function calling · `_05` 📡 streaming · `_06` structured outputs · `_07` JSON mode · `_08` 👁️ vision · `_09` 👁️ vision from a URL · `_10` 🛡️ moderation |
 | **Google Gemini** | `_01` starter · `_02` chat · `_03` system prompt · `_04` 🛡️ moderation (safety ratings, not a dedicated endpoint) |
 | **Mistral** | `_01` starter · `_02` structured outputs · `_03` function calling · `_04` 📄 OCR (dedicated endpoint) · `_05` 📄 OCR — PDF, chained into chat for targeted extraction · `_06` 🧑‍💻 Codestral FIM · `_07` 👁️ vision · `_08` 🔎 Embeddings + semantic RAG over Sherlock Holmes · `_09` 🛡️ moderation (dedicated endpoint) |
-| **Ollama** 🏠 | `_01` starter · `_02` chat, both via the OpenAI-compatible API and the native HTTP API · `_03` 🔧 tool calling (native `/api/chat`) |
+| **Ollama** 🏠 | `_01` starter · `_02` chat, both via the OpenAI-compatible API and the native HTTP API · `_03` 🔧 tool calling (native `/api/chat`) · `_04` structured outputs (native `format` + JSON Schema) · `_05` 🔎 local embeddings + semantic RAG over Sherlock Holmes — see [`doc/ollama.md`](doc/ollama.md) for the two API surfaces and local model picks |
 
 ### 🔌 MCP server
 
@@ -82,6 +82,15 @@ example of that provider follows.
 > *older* mechanics. Assistant prefill (`_08`), `budget_tokens` thinking (`_14`) and `temperature`
 > (`_06`) are rejected by the newest models — their modern replacements are `_09` and `_15`.
 > Switching the default to Opus 4.6+ / Sonnet 5 will make those three fail **by design**.
+
+## 📄 Deeper dives
+
+- [`doc/ollama.md`](doc/ollama.md) — how Ollama runs models locally, its two API surfaces (native
+  vs. OpenAI-compatible), and a rundown of common local model families with what's actually used
+  in this repo's examples.
+- [`doc/moderation.md`](doc/moderation.md) — moderation compared across all four providers
+  (Anthropic, OpenAI, Google, Mistral): dedicated endpoint vs. safety metadata vs. prompt-based
+  classification, category-by-category.
 
 ## 📖 Shared corpus
 
