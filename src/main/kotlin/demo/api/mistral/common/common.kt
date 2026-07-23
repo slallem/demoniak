@@ -21,9 +21,11 @@ import demo.api.anthropic.common.loadProperties
  * for the OpenAI SDK to model — that example calls it over plain HTTP instead, using
  * [MISTRAL_BASE_URL] and [mistralApiKey] directly.
  *
- * The key is read from `src/main/resources/mistral.properties` (property [API_KEY_PROPERTY]).
+ * The key is read from the shared `src/main/resources/credentials.properties` (property
+ * [API_KEY_PROPERTY]) — see `credentials.properties.example` for the documented, committed
+ * template. Every provider in this repo reads from that same file, namespaced by property name.
  */
-private const val API_KEY_RESOURCE = "mistral"
+private const val API_KEY_RESOURCE = "credentials"
 private const val API_KEY_PROPERTY = "mistral.api.key"
 
 /** Base URL of the Mistral API — shared by the SDK client below and any hand-rolled HTTP call. */

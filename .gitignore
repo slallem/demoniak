@@ -44,11 +44,8 @@ bin/
 ### Mac OS ###
 .DS_Store
 
-### Secrets ###
-src/main/resources/anthropic.properties
-/src/main/resources/google.properties
-/src/main/resources/openai.properties
 ### Local profile overrides (never commit) ###
 *.properties.local
-/todo.md
-/src/main/resources/mistral.properties
+
+### Secrets ###
+/src/main/resources/credentials.properties
