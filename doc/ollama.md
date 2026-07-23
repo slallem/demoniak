@@ -34,8 +34,10 @@ same running server exposes side by side.
 
 Ollama's own protocol: `/api/chat`, `/api/generate`, `/api/embed`, plus management endpoints
 (`/api/tags` lists installed models, `/api/ps` lists what's currently loaded in memory,
-`/api/pull`/`/api/create` manage models by code instead of CLI). This is where Ollama-specific
-features live, with no equivalent in the OpenAI schema:
+`/api/pull`/`/api/show`/`/api/delete`/`/api/create` manage models by code instead of CLI —
+`_08_model_management` pulls a small throwaway model, reads its metadata and `capabilities`, then
+deletes it again, streaming `/api/pull`'s NDJSON progress along the way). This is where
+Ollama-specific features live, with no equivalent in the OpenAI schema:
 
 - `think: true/false` (or a level like `"low"`/`"high"`) — many recent models (the Qwen3.x family
   in particular) reason by default; this is the only way to turn it off, and turning it off can
