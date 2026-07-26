@@ -11,6 +11,7 @@ with LLM APIs.
 ![Google](https://img.shields.io/badge/Google-Gemini-4285F4?logo=googlegemini&logoColor=white)
 ![Mistral](https://img.shields.io/badge/Mistral-FA520F?logo=mistralai&logoColor=white)
 ![Ollama](https://img.shields.io/badge/Ollama-local-000000?logo=ollama&logoColor=white)
+![DeepSeek](https://img.shields.io/badge/DeepSeek-5786FE?logo=deepseek&logoColor=white)
 ![MCP](https://img.shields.io/badge/MCP-server%20%2B%20clients-000000)
 
 Every example is a standalone `fun main()` you can read in isolation and run from your IDE.
@@ -64,7 +65,7 @@ ever want to switch between multiple credential sets without editing the base fi
 | **Google Gemini** | `_01` starter · `_02` chat · `_03` system prompt · `_04` 🛡️ moderation (safety ratings, not a dedicated endpoint) |
 | **Mistral** | `_01` starter · `_02` structured outputs · `_03` function calling · `_04` 📄 OCR (dedicated endpoint) · `_05` 📄 OCR — PDF, chained into chat for targeted extraction · `_06` 🧑‍💻 Codestral FIM · `_07` 👁️ vision · `_08` 🔎 Embeddings + semantic RAG over Sherlock Holmes · `_09` 🛡️ moderation (dedicated endpoint) |
 | **Ollama** 🏠 | `_01` starter · `_02` chat, both via the OpenAI-compatible API and the native HTTP API · `_03` 🔧 tool calling (native `/api/chat`) · `_04` structured outputs (native `format` + JSON Schema) · `_05` 🔎 local embeddings + semantic RAG over Sherlock Holmes · `_06` 👁️ vision (native `images` field) · `_07` 📊 local perf introspection (`load_duration`, tokens/s, `/api/ps`) · `_08` 📦 model management by code (`/api/pull`, `/api/show`, `/api/delete`) — see [`doc/ollama.md`](doc/ollama.md) for the two API surfaces and local model picks |
-| **DeepSeek** | `_01` starter — OpenAI-compatible (`openai-java` + different `baseUrl`, no `/v1` segment), model `deepseek-v4-flash` |
+| **DeepSeek** | `_01` starter — OpenAI-compatible (`openai-java` + different `baseUrl`, no `/v1` segment), model `deepseek-v4-flash` · `_02` 🧠 thinking mode (dual-mode toggle, `reasoning_content`) · `_03` 🔧 function calling · `_04` ⚡ prompt caching (automatic, `prompt_cache_hit_tokens`/`prompt_cache_miss_tokens`) |
 
 ### 🔌 MCP server
 
