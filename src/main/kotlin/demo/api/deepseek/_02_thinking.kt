@@ -38,11 +38,9 @@ import demo.api.deepseek.common.defaultModel
  * shows the full "let the ball cost x…" derivation before it.
  */
 
-// Note: Hard to find a tricky enough question in order to fool the thinking=OFF case.
-// I can notice that thinking=ON response often takes more time than thinking=OFF on most tricky questions
+// Tricky question (should fool the thinking=OFF mode but not the thinking=ON)
 private const val RIDDLE =
-    "A bat and a ball cost \$1.10 in total. The bat costs \$1.00 more than the ball. " +
-        "How much does the ball cost? Answer with just the price."
+    "How many times the letter T appears in that question ? Answer with just a number."
 
 /** Builds a request, toggling DeepSeek's thinking mode via the raw-JSON escape hatch. */
 private fun request(thinkingEnabled: Boolean) =
