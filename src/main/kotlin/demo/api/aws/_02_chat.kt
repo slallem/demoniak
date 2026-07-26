@@ -12,6 +12,11 @@ import demo.api.aws.common.bedrockClient
  *
  * This example also points at an LLM weakness around randomness: it relies on probabilities and
  * so generally returns the same responses when asked for something "random".
+ *
+ * If this fails with `ResourceNotFoundException: Model use case details have not been submitted
+ * for this account`, Anthropic models on Bedrock need a one-time "use case details" form filled
+ * in first — Bedrock console → Model access → Anthropic → submit use case details. Access is
+ * granted right away, but allow ~15 minutes for it to propagate.
  */
 
 fun main() {
