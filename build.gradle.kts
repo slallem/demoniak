@@ -20,6 +20,10 @@ dependencies {
     implementation("com.anthropic:anthropic-java:2.34.0")
     implementation("com.openai:openai-java:4.41.0")
     implementation("com.google.genai:google-genai:1.60.0")
+    // Anthropic Claude via Amazon Bedrock (_01/_02 in demo.api.aws): the only provider here
+    // authenticated with AWS SigV4 request signing rather than a single bearer-token key, so it
+    // needs the AWS SDK (v2) instead of a lightweight HTTP call.
+    implementation("software.amazon.awssdk:bedrockruntime:2.49.1")
     // Force a patched commons-codec. google-genai pulls in commons-codec:1.11 transitively
     // (google-genai -> google-http-client:1.46.2 -> httpclient:4.5.14 -> commons-codec:1.11),
     // which flags WS-2019-0379 (input validation). Gradle picks the highest requested version

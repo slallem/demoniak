@@ -12,6 +12,7 @@ with LLM APIs.
 ![Mistral](https://img.shields.io/badge/Mistral-FA520F?logo=mistralai&logoColor=white)
 ![Ollama](https://img.shields.io/badge/Ollama-local-000000?logo=ollama&logoColor=white)
 ![DeepSeek](https://img.shields.io/badge/DeepSeek-5786FE?logo=deepseek&logoColor=white)
+![AWS Bedrock](https://img.shields.io/badge/AWS-Bedrock-232F3E?logo=amazonwebservices&logoColor=white)
 ![MCP](https://img.shields.io/badge/MCP-server%20%2B%20clients-000000)
 
 Every example is a standalone `fun main()` you can read in isolation and run from your IDE.
@@ -35,6 +36,15 @@ Keys are **not** env vars: every provider reads the same `src/main/resources/cre
 `google.api.key`, `mistral.api.key`). Ollama needs no key (local server). Advanced: run with
 `-Dprofile=local` (or `APP_PROFILE=local`) to overlay `credentials.properties.local` on top, if you
 ever want to switch between multiple credential sets without editing the base file.
+
+**Exception: AWS Bedrock.** There is no `aws.properties` — it has two auth variants instead, both
+via real environment variables rather than a properties file. **SigV4** (`_01_starter_sigv4`):
+set `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` (+ `AWS_SESSION_TOKEN` if temporary) and
+`AWS_REGION` — the AWS SDK's default provider chain picks them up on its own, and if you've ever
+run `aws configure`/an SSO login, `~/.aws/credentials`/`~/.aws/config` already satisfy it with no
+env vars needed at all. **API keys** (`_01b_starter_apikey`, Bedrock's newer bearer-token auth):
+set `AWS_BEARER_TOKEN_BEDROCK` to a key generated from the Bedrock console or
+`aws iam create-service-specific-credential`.
 
 ## 📚 The examples
 
@@ -66,6 +76,7 @@ ever want to switch between multiple credential sets without editing the base fi
 | **Mistral** | `_01` starter · `_02` structured outputs · `_03` function calling · `_04` 📄 OCR (dedicated endpoint) · `_05` 📄 OCR — PDF, chained into chat for targeted extraction · `_06` 🧑‍💻 Codestral FIM · `_07` 👁️ vision · `_08` 🔎 Embeddings + semantic RAG over Sherlock Holmes · `_09` 🛡️ moderation (dedicated endpoint) |
 | **Ollama** 🏠 | `_01` starter · `_02` chat, both via the OpenAI-compatible API and the native HTTP API · `_03` 🔧 tool calling (native `/api/chat`) · `_04` structured outputs (native `format` + JSON Schema) · `_05` 🔎 local embeddings + semantic RAG over Sherlock Holmes · `_06` 👁️ vision (native `images` field) · `_07` 📊 local perf introspection (`load_duration`, tokens/s, `/api/ps`) · `_08` 📦 model management by code (`/api/pull`, `/api/show`, `/api/delete`) — see [`doc/ollama.md`](doc/ollama.md) for the two API surfaces and local model picks |
 | **DeepSeek** | `_01` starter — OpenAI-compatible (`openai-java` + different `baseUrl`, no `/v1` segment), model `deepseek-v4-flash` · `_02` 🧠 thinking mode (dual-mode toggle, `reasoning_content`) · `_03` 🔧 function calling · `_04` ⚡ prompt caching (automatic, `prompt_cache_hit_tokens`/`prompt_cache_miss_tokens`) |
+| **AWS Bedrock** | Claude via Bedrock's Converse API · `_01` starter (SigV4 auth) · `_01b` starter (API key / bearer token auth) · `_02` multi-turn chat · `_03` 🔀 multi-vendor router — cheap Nova Micro triage escalates to Claude Haiku only when a question needs it, same client/API for both vendors |
 
 ### 🔌 MCP server
 
