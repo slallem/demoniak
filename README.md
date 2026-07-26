@@ -12,6 +12,7 @@ with LLM APIs.
 ![Mistral](https://img.shields.io/badge/Mistral-FA520F?logo=mistralai&logoColor=white)
 ![Ollama](https://img.shields.io/badge/Ollama-local-000000?logo=ollama&logoColor=white)
 ![DeepSeek](https://img.shields.io/badge/DeepSeek-5786FE?logo=deepseek&logoColor=white)
+![AWS Bedrock](https://img.shields.io/badge/AWS-Bedrock-232F3E?logo=amazonwebservices&logoColor=white)
 ![MCP](https://img.shields.io/badge/MCP-server%20%2B%20clients-000000)
 
 Every example is a standalone `fun main()` you can read in isolation and run from your IDE.
@@ -35,6 +36,11 @@ Keys are **not** env vars: every provider reads the same `src/main/resources/cre
 `google.api.key`, `mistral.api.key`). Ollama needs no key (local server). Advanced: run with
 `-Dprofile=local` (or `APP_PROFILE=local`) to overlay `credentials.properties.local` on top, if you
 ever want to switch between multiple credential sets without editing the base file.
+
+**Exception: AWS Bedrock.** It authenticates with SigV4 request signing, not a bearer-token key,
+so there is no `aws.properties`. Set `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` (+
+`AWS_SESSION_TOKEN` if using temporary credentials) and `AWS_REGION` as real environment
+variables instead — the AWS SDK's default provider chain picks them up on its own.
 
 ## 📚 The examples
 
