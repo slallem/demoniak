@@ -25,6 +25,15 @@ object Models {
     const val CLAUDE_HAIKU_4_5 = "eu.anthropic.claude-haiku-4-5-20251001-v1:0"
 
     /**
+     * Amazon's own Nova Micro — cheapest/fastest of the Nova family, text-only. Not an Anthropic
+     * model at all: this is what makes [demo.api.aws._03_nova_router] a genuine multi-vendor
+     * broker demo rather than another "Claude via Bedrock" example. Same cross-region inference
+     * profile requirement as Claude (`INFERENCE_PROFILE`, confirmed via
+     * `aws bedrock list-foundation-models --by-provider amazon`), same `eu.` prefix rule.
+     */
+    const val NOVA_MICRO = "eu.amazon.nova-micro-v1:0"
+
+    /**
      * The model every example uses. Change this one line to switch them all.
      *
      * Deliberately the same underlying model as the Anthropic-direct default
