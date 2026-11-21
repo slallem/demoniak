@@ -33,7 +33,7 @@ cp src/main/resources/credentials.properties.example src/main/resources/credenti
 
 Keys are **not** env vars: every provider reads the same `src/main/resources/credentials.properties`
 (git-ignored — never commit it), one property per provider (`anthropic.api.key`, `openai.api.key`,
-`google.api.key`, `mistral.api.key`). Ollama needs no key (local server). Advanced: run with
+`google.api.key`, `mistral.api.key`, `deepseek.api.key`, `ovh.api.key`). Ollama needs no key (local server). Advanced: run with
 `-Dprofile=local` (or `APP_PROFILE=local`) to overlay `credentials.properties.local` on top, if you
 ever want to switch between multiple credential sets without editing the base file.
 
@@ -76,6 +76,7 @@ set `AWS_BEARER_TOKEN_BEDROCK` to a key generated from the Bedrock console or
 | **Mistral** | `_01` starter · `_02` structured outputs · `_03` function calling · `_04` 📄 OCR (dedicated endpoint) · `_05` 📄 OCR — PDF, chained into chat for targeted extraction · `_06` 🧑‍💻 Codestral FIM · `_07` 👁️ vision · `_08` 🔎 Embeddings + semantic RAG over Sherlock Holmes · `_09` 🛡️ moderation (dedicated endpoint) |
 | **Ollama** 🏠 | `_01` starter · `_02` chat, both via the OpenAI-compatible API and the native HTTP API · `_03` 🔧 tool calling (native `/api/chat`) · `_04` structured outputs (native `format` + JSON Schema) · `_05` 🔎 local embeddings + semantic RAG over Sherlock Holmes · `_06` 👁️ vision (native `images` field) · `_07` 📊 local perf introspection (`load_duration`, tokens/s, `/api/ps`) · `_08` 📦 model management by code (`/api/pull`, `/api/show`, `/api/delete`) — see [`doc/ollama.md`](doc/ollama.md) for the two API surfaces and local model picks |
 | **DeepSeek** | `_01` starter — OpenAI-compatible (`openai-java` + different `baseUrl`, no `/v1` segment), model `deepseek-v4-flash` · `_02` 🧠 thinking mode (dual-mode toggle, `reasoning_content`) · `_03` 🔧 function calling · `_04` ⚡ prompt caching (automatic, `prompt_cache_hit_tokens`/`prompt_cache_miss_tokens`) |
+| **OVHcloud AI Endpoints** 🇫🇷 | `_01` starter — OpenAI-compatible (`openai-java` + different `baseUrl`), OVH's own open-weight reasoning model **Olala** (`Olala-v1.0-mini-7A1B`); the `model` field is the catalog *name*, not its `id` — see [`doc/models.md`](doc/models.md) |
 | **AWS Bedrock** | Claude via Bedrock's Converse API · `_01` starter (SigV4 auth) · `_01b` starter (API key / bearer token auth) · `_02` multi-turn chat · `_03` 🔀 multi-vendor router — cheap Nova Micro triage escalates to Claude Haiku only when a question needs it, same client/API for both vendors |
 
 ### 🔌 MCP server
